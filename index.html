@@ -1,0 +1,1152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Asma Catering – Halal Pakistani, Indian & Chinese Food | Brampton · Mississauga · GTA</title>
+  <meta name="description" content="Asma Catering offers authentic Halal Pakistani, Indian and Chinese food for parties and weekly packages in Brampton, Mississauga and the GTA. Order via WhatsApp."/>
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --green:  #1a6b2e;
+      --green2: #239a40;
+      --gold:   #c8921a;
+      --gold2:  #f0b429;
+      --cream:  #fdf6ec;
+      --dark:   #1c1c1c;
+      --text:   #333;
+      --shadow: 0 4px 24px rgba(0,0,0,.13);
+      --radius: 16px;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Nunito', sans-serif; color: var(--text); background: #fff; overflow-x: hidden; }
+
+    /* ─── SCROLL REVEAL ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity .7s ease, transform .7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-left  { opacity:0; transform: translateX(-50px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right { opacity:0; transform: translateX(50px);  transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity:1; transform:none; }
+
+    /* ─── LOADER ─── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--green);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity .6s ease, visibility .6s;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo { width: 100px; height: 100px; border-radius: 50%; border: 4px solid var(--gold2); object-fit: cover; animation: spin-fade 1s ease-out forwards; }
+    .loader-text { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-top: 16px; animation: fadeUp .8s .3s both; }
+    .loader-bar { width: 200px; height: 4px; background: rgba(255,255,255,.2); border-radius: 2px; margin-top: 20px; overflow: hidden; }
+    .loader-fill { height: 100%; background: var(--gold2); border-radius: 2px; animation: fill-bar 1.2s ease forwards; }
+    @keyframes fill-bar { from{width:0} to{width:100%} }
+    @keyframes spin-fade { from{opacity:0;transform:scale(.6) rotate(-20deg)} to{opacity:1;transform:none} }
+    @keyframes fadeUp { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:none} }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      background: rgba(26,107,46,.97); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%; height: 70px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.25);
+      transition: background .3s, box-shadow .3s;
+    }
+    nav.scrolled { background: rgba(15,60,20,.98); box-shadow: 0 4px 24px rgba(0,0,0,.4); }
+    .nav-logo { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo img { height: 48px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold2); transition: transform .3s; }
+    .nav-logo:hover img { transform: rotate(5deg) scale(1.05); }
+    .nav-logo span { color: #fff; font-family: 'Playfair Display', serif; font-size: 1.25rem; letter-spacing: .3px; }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a {
+      color: rgba(255,255,255,.9); text-decoration: none; font-weight: 700; font-size: .88rem;
+      letter-spacing: .5px; position: relative; padding-bottom: 2px; transition: color .2s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -2px; left: 0; width: 0; height: 2px;
+      background: var(--gold2); transition: width .3s;
+    }
+    .nav-links a:hover { color: var(--gold2); }
+    .nav-links a:hover::after { width: 100%; }
+    .nav-cta {
+      background: var(--gold) !important; color: #fff !important; padding: 8px 20px;
+      border-radius: 25px; transition: background .2s, transform .2s !important;
+    }
+    .nav-cta::after { display:none !important; }
+    .nav-cta:hover { background: var(--gold2) !important; color: var(--dark) !important; transform: scale(1.04) !important; }
+    .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: #fff; background:none; border:none; }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh; position: relative;
+      display: flex; align-items: center; justify-content: center; overflow: hidden;
+    }
+    .hero-slider { position: absolute; inset: 0; }
+    .hero-slide {
+      position: absolute; inset: 0; background-size: cover; background-position: center;
+      opacity: 0; transition: opacity 1.4s ease; transform: scale(1.05);
+      transition: opacity 1.4s ease, transform 6s ease;
+    }
+    .hero-slide.active { opacity: 1; transform: scale(1); }
+    .hero-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,0,0,.6) 0%, rgba(0,0,0,.3) 50%, rgba(0,0,0,.6) 100%);
+    }
+    .hero-content {
+      position: relative; z-index: 2; text-align: center; color: #fff;
+      padding: 20px; max-width: 860px;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: var(--gold); color: #fff;
+      padding: 7px 22px; border-radius: 30px; font-size: .82rem; font-weight: 800;
+      letter-spacing: 2px; text-transform: uppercase; margin-bottom: 24px;
+      animation: fadeUp .8s .4s both;
+      box-shadow: 0 4px 15px rgba(200,146,26,.4);
+    }
+    .hero-content h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      line-height: 1.12; margin-bottom: 20px;
+      text-shadow: 0 2px 12px rgba(0,0,0,.4);
+      animation: fadeUp .8s .6s both;
+    }
+    .hero-content h1 span { color: var(--gold2); }
+    .hero-content p { font-size: clamp(1rem, 2.5vw, 1.2rem); margin-bottom: 38px; opacity: .93; animation: fadeUp .8s .8s both; }
+    .hero-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; animation: fadeUp .8s 1s both; }
+    .btn-primary {
+      background: var(--gold); color: #fff; padding: 14px 34px; border-radius: 32px;
+      font-size: 1rem; font-weight: 800; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(200,146,26,.5); transition: all .25s;
+      display: inline-flex; align-items: center; gap: 9px;
+    }
+    .btn-primary:hover { background: var(--gold2); color: var(--dark); transform: translateY(-3px) scale(1.03); box-shadow: 0 8px 25px rgba(200,146,26,.5); }
+    .btn-outline {
+      border: 2px solid rgba(255,255,255,.85); color: #fff; padding: 14px 34px; border-radius: 32px;
+      font-size: 1rem; font-weight: 800; text-decoration: none; transition: all .25s;
+      display: inline-flex; align-items: center; gap: 9px;
+    }
+    .btn-outline:hover { background: #fff; color: var(--green); transform: translateY(-3px); }
+
+    /* hero dots */
+    .hero-dots { position: absolute; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 8px; }
+    .hero-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.4); cursor: pointer; transition: all .3s; }
+    .hero-dot.active { background: var(--gold2); width: 24px; border-radius: 4px; }
+    .scroll-down {
+      position: absolute; bottom: 28px; left: 50%; transform: translateX(-50%);
+      color: rgba(255,255,255,.6); font-size: 1.4rem; z-index: 2;
+      animation: bounce 2.2s infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(10px)} }
+
+    /* ─── STATS STRIP ─── */
+    #stats {
+      background: linear-gradient(90deg, var(--green) 0%, #0f5020 100%);
+      padding: 40px 5%; color: #fff;
+    }
+    .stats-grid { display: flex; justify-content: center; gap: 60px; flex-wrap: wrap; max-width: 900px; margin: 0 auto; }
+    .stat-item { text-align: center; }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.8rem; font-weight: 800; color: var(--gold2); line-height: 1; }
+    .stat-label { font-size: .9rem; opacity: .85; margin-top: 4px; font-weight: 600; letter-spacing: .5px; }
+
+    /* ─── SECTIONS ─── */
+    section { padding: 100px 5%; }
+    .section-label { color: var(--gold); font-weight: 800; letter-spacing: 2.5px; text-transform: uppercase; font-size: .82rem; }
+    .section-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 2.8rem); margin: 8px 0 16px; color: var(--dark); }
+    .section-divider { width: 60px; height: 4px; background: linear-gradient(90deg, var(--gold), var(--green)); border-radius: 2px; margin: 0 auto 52px; }
+    .text-center { text-align: center; }
+
+    /* ─── ABOUT ─── */
+    #about { background: var(--cream); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 70px; align-items: center; max-width: 1100px; margin: 0 auto; }
+    .about-imgs { position: relative; }
+    .about-main-img { width: 100%; border-radius: 20px; box-shadow: var(--shadow); object-fit: cover; height: 400px; transition: transform .4s; }
+    .about-main-img:hover { transform: scale(1.02); }
+    .about-badge-img {
+      position: absolute; bottom: -28px; right: -28px;
+      width: 165px; height: 165px; border-radius: 14px;
+      object-fit: cover; border: 6px solid #fff; box-shadow: var(--shadow);
+      transition: transform .4s;
+    }
+    .about-badge-img:hover { transform: scale(1.05) rotate(2deg); }
+    .about-text .section-divider { margin: 0 0 28px; }
+    .about-text p { line-height: 1.85; margin-bottom: 16px; font-size: 1.05rem; }
+    .about-features { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 28px; }
+    .feature-chip {
+      display: flex; align-items: center; gap: 8px;
+      background: #fff; padding: 10px 18px; border-radius: 30px;
+      font-weight: 800; font-size: .88rem; box-shadow: 0 2px 10px rgba(0,0,0,.08);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .feature-chip:hover { transform: translateY(-2px); box-shadow: 0 5px 16px rgba(0,0,0,.12); }
+    .feature-chip i { color: var(--green); }
+
+    /* ─── GALLERY ─── */
+    #gallery { background: #fff; }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 16px; max-width: 1200px; margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative; overflow: hidden; border-radius: 14px;
+      box-shadow: var(--shadow); aspect-ratio: 4/3; cursor: pointer;
+    }
+    .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; display: block; }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,.7) 0%, transparent 55%);
+      opacity: 0; transition: opacity .35s;
+      display: flex; align-items: flex-end; padding: 16px;
+      color: #fff; font-weight: 800; font-size: .95rem;
+    }
+    .gallery-overlay i { margin-right: 6px; color: var(--gold2); }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+
+    /* Lightbox */
+    #lightbox {
+      position: fixed; inset: 0; z-index: 9000;
+      background: rgba(0,0,0,.92); display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s;
+    }
+    #lightbox.open { opacity: 1; visibility: visible; }
+    #lightbox img { max-width: 90vw; max-height: 88vh; border-radius: 12px; box-shadow: 0 8px 40px rgba(0,0,0,.5); }
+    .lb-close {
+      position: absolute; top: 20px; right: 28px; color: #fff; font-size: 2rem;
+      cursor: pointer; transition: color .2s, transform .2s;
+    }
+    .lb-close:hover { color: var(--gold2); transform: scale(1.2); }
+    .lb-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      color: #fff; font-size: 2.2rem; cursor: pointer;
+      background: rgba(255,255,255,.1); width: 50px; height: 50px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      transition: background .2s; user-select: none;
+    }
+    .lb-arrow:hover { background: rgba(255,255,255,.25); }
+    .lb-prev { left: 16px; }
+    .lb-next { right: 16px; }
+    .lb-caption { position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%); color: #fff; font-weight: 700; font-size: 1rem; }
+
+    /* ─── MENU ─── */
+    #menu { background: var(--cream); }
+    .menu-search-wrap { max-width: 500px; margin: 0 auto 30px; position: relative; }
+    .menu-search {
+      width: 100%; padding: 13px 20px 13px 46px; border-radius: 30px;
+      border: 2px solid #ddd; font-size: .95rem; font-family: inherit;
+      transition: border-color .2s, box-shadow .2s; outline: none;
+    }
+    .menu-search:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(26,107,46,.15); }
+    .menu-search-wrap i { position: absolute; left: 17px; top: 50%; transform: translateY(-50%); color: #aaa; }
+    .menu-tabs { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-bottom: 36px; }
+    .tab-btn {
+      background: #fff; border: 2px solid #e0d5c5; color: var(--text);
+      padding: 10px 22px; border-radius: 30px; cursor: pointer;
+      font-weight: 700; font-size: .88rem; font-family: inherit;
+      transition: all .2s; display: flex; align-items: center; gap: 6px;
+    }
+    .tab-btn:hover, .tab-btn.active { background: var(--green); border-color: var(--green); color: #fff; transform: translateY(-2px); box-shadow: 0 4px 14px rgba(26,107,46,.3); }
+    .menu-section { display: none; max-width: 1150px; margin: 0 auto; }
+    .menu-section.active { display: block; }
+    .menu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 20px; }
+    .menu-card {
+      background: #fff; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 3px 16px rgba(0,0,0,.09);
+      transition: transform .3s, box-shadow .3s;
+      border: 1px solid rgba(0,0,0,.05);
+    }
+    .menu-card:hover { transform: translateY(-6px); box-shadow: 0 12px 30px rgba(0,0,0,.15); }
+    .menu-card.hidden { display: none; }
+    .menu-card-img { width: 100%; height: 185px; object-fit: cover; display: block; transition: transform .4s; }
+    .menu-card:hover .menu-card-img { transform: scale(1.04); }
+    .menu-card-img-wrap { overflow: hidden; height: 185px; }
+    .menu-card-placeholder {
+      height: 185px; background: linear-gradient(135deg, var(--green) 0%, var(--green2) 100%);
+      display: flex; align-items: center; justify-content: center; font-size: 3.5rem;
+    }
+    .menu-card-body { padding: 16px 18px 18px; }
+    .menu-card-body h4 { font-size: 1.02rem; font-weight: 800; margin-bottom: 5px; color: var(--dark); }
+    .menu-prices { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .price-tag {
+      background: var(--cream); border: 1px solid #e0d5c5;
+      padding: 4px 12px; border-radius: 20px; font-size: .8rem; font-weight: 800; color: var(--green);
+    }
+    .price-tag span { color: #999; font-weight: 600; }
+    .menu-note { font-size: .8rem; color: #999; margin-top: 6px; }
+
+    /* ─── PACKAGES ─── */
+    #packages { background: #fff; }
+    .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
+    .pkg-card {
+      border-radius: 20px; overflow: hidden; box-shadow: var(--shadow);
+      transition: transform .3s, border-color .3s; border: 2px solid transparent;
+    }
+    .pkg-card:hover { transform: translateY(-8px); border-color: var(--gold); }
+    .pkg-header {
+      background: linear-gradient(135deg, var(--green) 0%, #0e4d1c 100%);
+      color: #fff; padding: 30px 26px; text-align: center; position: relative; overflow: hidden;
+    }
+    .pkg-header::before {
+      content:''; position:absolute; top:-40px; right:-40px;
+      width:120px; height:120px; border-radius:50%;
+      background: rgba(255,255,255,.06);
+    }
+    .pkg-header h3 { font-family: 'Playfair Display', serif; font-size: 1.55rem; margin-bottom: 6px; }
+    .pkg-price-tag {
+      display: inline-block; background: var(--gold); color: #fff;
+      padding: 7px 20px; border-radius: 20px; font-size: 1.1rem; font-weight: 800; margin-top: 12px;
+      box-shadow: 0 3px 12px rgba(200,146,26,.4);
+    }
+    .pkg-body { background: var(--cream); padding: 26px; }
+    .pkg-body ul { list-style: none; }
+    .pkg-body li { padding: 7px 0; border-bottom: 1px dashed #ddd; font-size: .95rem; display: flex; align-items: flex-start; gap: 9px; }
+    .pkg-body li:last-child { border-bottom: none; }
+    .pkg-body li i { color: var(--green); margin-top: 3px; flex-shrink: 0; }
+    .pkg-pricing { margin-top: 20px; background: #fff; border-radius: 14px; padding: 16px 18px; }
+    .pkg-pricing h5 { font-size: .78rem; text-transform: uppercase; letter-spacing: 1.2px; color: #aaa; margin-bottom: 10px; }
+    .pkg-row { display: flex; justify-content: space-between; padding: 5px 0; font-size: .93rem; }
+    .pkg-row strong { color: var(--green); font-size: 1rem; }
+
+    /* ─── WEEKLY ─── */
+    .weekly-card {
+      max-width: 720px; margin: 56px auto 0;
+      background: linear-gradient(135deg, #fff9f0, #fff);
+      border: 2px solid var(--gold); border-radius: 20px; padding: 40px;
+      text-align: center; box-shadow: var(--shadow);
+    }
+    .weekly-prices { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin: 24px 0; }
+    .weekly-price-box { background: var(--cream); border-radius: 14px; padding: 18px 28px; }
+    .weekly-price-box .num { font-size: 2rem; font-weight: 800; color: var(--green); }
+    .weekly-price-box .lbl { font-size: .82rem; color: #888; margin-top: 2px; }
+
+    /* ─── DELIVERY BANNER ─── */
+    .delivery-banner {
+      background: linear-gradient(135deg, var(--green) 0%, #0f4d1f 100%);
+      color: #fff; border-radius: 20px; padding: 38px 44px;
+      display: flex; gap: 36px; align-items: center; flex-wrap: wrap;
+      max-width: 1000px; margin: 60px auto 0; box-shadow: var(--shadow);
+    }
+    .delivery-icon { font-size: 3.8rem; color: var(--gold2); flex-shrink: 0; animation: truck 2s infinite; }
+    @keyframes truck { 0%,100%{transform:translateX(0)} 50%{transform:translateX(10px)} }
+    .delivery-text h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 10px; }
+    .delivery-text p { line-height: 1.75; opacity: .9; }
+
+    /* ─── CONTACT ─── */
+    #contact { background: var(--cream); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; max-width: 1000px; margin: 0 auto; }
+    .contact-info h3 { font-family: 'Playfair Display', serif; font-size: 1.6rem; margin-bottom: 24px; }
+    .contact-item { display: flex; gap: 16px; margin-bottom: 24px; align-items: flex-start; }
+    .contact-icon {
+      width: 52px; height: 52px; border-radius: 50%;
+      background: var(--green); color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; flex-shrink: 0; transition: transform .25s;
+    }
+    .contact-item:hover .contact-icon { transform: scale(1.1) rotate(5deg); }
+    .contact-item h4 { font-size: .8rem; text-transform: uppercase; letter-spacing: 1.2px; color: #aaa; margin-bottom: 4px; }
+    .contact-item p, .contact-item a { font-size: 1.05rem; font-weight: 700; color: var(--dark); text-decoration: none; }
+    .contact-item a:hover { color: var(--green); }
+    .whatsapp-cta {
+      background: #25d366; color: #fff; padding: 16px 32px; border-radius: 32px;
+      font-size: 1.05rem; font-weight: 800; text-decoration: none;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: 0 4px 18px rgba(37,211,102,.4); transition: all .25s; margin-top: 12px;
+    }
+    .whatsapp-cta:hover { background: #1da851; transform: translateY(-3px); color: #fff; box-shadow: 0 8px 24px rgba(37,211,102,.5); }
+    .social-links { display: flex; gap: 12px; margin-top: 28px; }
+    .social-btn {
+      width: 48px; height: 48px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem; color: #fff; text-decoration: none;
+      transition: transform .25s, box-shadow .25s;
+    }
+    .social-btn:hover { transform: translateY(-4px); box-shadow: 0 6px 18px rgba(0,0,0,.25); }
+    .social-fb { background: #1877f2; }
+    .social-tt { background: #000; }
+    .social-wa { background: #25d366; }
+    .contact-visual { position: relative; }
+    .contact-img { width: 100%; border-radius: 20px; object-fit: cover; height: 100%; min-height: 380px; box-shadow: var(--shadow); transition: transform .4s; }
+    .contact-img:hover { transform: scale(1.02); }
+    .halal-badge {
+      position: absolute; top: -18px; right: -18px;
+      background: var(--green); color: #fff;
+      width: 92px; height: 92px; border-radius: 50%;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      font-weight: 700; font-size: .78rem; border: 5px solid #fff;
+      box-shadow: var(--shadow); text-align: center;
+      animation: pulse-badge 2.5s infinite;
+    }
+    @keyframes pulse-badge { 0%,100%{box-shadow:0 4px 16px rgba(26,107,46,.3)} 50%{box-shadow:0 4px 28px rgba(26,107,46,.6)} }
+    .halal-badge span { font-size: 1.3rem; font-weight: 800; }
+
+    /* ─── FOOTER ─── */
+    footer { background: var(--dark); color: #ccc; padding: 56px 5% 32px; }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 44px; max-width: 1100px; margin: 0 auto 44px; }
+    .footer-brand img { height: 64px; border-radius: 50%; margin-bottom: 16px; border: 2px solid var(--gold); }
+    .footer-brand p { line-height: 1.75; font-size: .9rem; opacity: .75; }
+    .footer-col h4 { color: #fff; margin-bottom: 18px; font-size: .95rem; text-transform: uppercase; letter-spacing: 1px; }
+    .footer-col ul { list-style: none; }
+    .footer-col li { margin-bottom: 9px; }
+    .footer-col a { color: #bbb; text-decoration: none; font-size: .9rem; transition: color .2s; display: flex; align-items: center; gap: 6px; }
+    .footer-col a:hover { color: var(--gold2); }
+    .footer-bottom { border-top: 1px solid #2e2e2e; padding-top: 26px; text-align: center; font-size: .83rem; opacity: .55; max-width: 1100px; margin: 0 auto; }
+
+    /* ─── BACK TO TOP ─── */
+    #backTop {
+      position: fixed; bottom: 100px; right: 28px; z-index: 999;
+      background: var(--green); color: #fff; width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; cursor: pointer; border: none;
+      box-shadow: 0 4px 14px rgba(0,0,0,.25); transition: all .3s;
+      opacity: 0; visibility: hidden;
+    }
+    #backTop.show { opacity: 1; visibility: visible; }
+    #backTop:hover { background: var(--green2); transform: translateY(-3px); }
+
+    /* ─── FLOATING WHATSAPP ─── */
+    .float-wa {
+      position: fixed; bottom: 28px; right: 28px; z-index: 999;
+      background: #25d366; color: #fff; width: 58px; height: 58px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      font-size: 1.7rem; text-decoration: none;
+      box-shadow: 0 4px 18px rgba(37,211,102,.55);
+      animation: pulse-wa 2.5s infinite;
+    }
+    @keyframes pulse-wa { 0%,100%{box-shadow:0 4px 18px rgba(37,211,102,.5)} 50%{box-shadow:0 6px 30px rgba(37,211,102,.85)} }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 900px) {
+      .about-grid, .contact-grid, .footer-grid { grid-template-columns: 1fr; }
+      .about-badge-img { display: none; }
+      .contact-visual { order: -1; }
+      .halal-badge { top: 10px; right: 10px; }
+      .delivery-banner { flex-direction: column; text-align: center; padding: 28px 20px; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; gap: 0; position: absolute; top: 70px; left: 0; width: 100%; background: #0f5020; padding: 10px 5% 20px; }
+      .nav-links.open { display: flex; }
+      .nav-links li { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,.1); }
+      .hamburger { display: block; }
+      .stats-grid { gap: 32px; }
+      nav { padding: 0 5%; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <img src="images/Asma Catering Logo.GIF" alt="Loading" class="loader-logo" onerror="this.src='images/Logo.JPG'"/>
+  <div class="loader-text">Asma Catering</div>
+  <div class="loader-bar"><div class="loader-fill"></div></div>
+</div>
+
+<!-- NAV -->
+<nav id="mainNav">
+  <div style="display:flex;align-items:center;gap:10px;">
+    <a href="#hero" class="nav-logo">
+      <img src="images/Asma Catering Logo.GIF" alt="Logo" onerror="this.src='images/Logo.JPG'"/>
+      <span>Asma Catering</span>
+    </a>
+    <a href="images/Catering Certificate.jpg" target="_blank" title="View Catering Certificate">
+      <img src="images/Catering Certificate.jpg" alt="Catering Certificate" style="height:46px;border-radius:6px;border:2px solid var(--gold2);box-shadow:0 2px 8px rgba(0,0,0,.3);"/>
+    </a>
+  </div>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">About</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#packages">Packages</a></li>
+    <li><a href="#contact" class="nav-cta"><i class="fab fa-whatsapp"></i> Order Now</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Menu"><i class="fas fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-slider" id="heroSlider">
+    <div class="hero-slide active" style="background-image:url('images/BeFunky-collage.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Biryani Tray.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Chicken Karhai.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/Catering-pics.jpg')"></div>
+    <div class="hero-slide" style="background-image:url('images/IMG-2008.jpg')"></div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><i class="fas fa-certificate"></i> 100% Halal Certified</div>
+    <h1>Authentic <span>Halal</span> Catering<br/>for Every Occasion</h1>
+    <p>Pakistani · Indian · Chinese &nbsp;|&nbsp; Brampton · Mississauga · GTA</p>
+    <div class="hero-btns">
+      <a href="https://wa.me/16474015287?text=Hello%20Asma%20Catering!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="btn-primary">
+        <i class="fab fa-whatsapp"></i> WhatsApp Us to Order
+      </a>
+      <a href="#menu" class="btn-outline">
+        <i class="fas fa-utensils"></i> View Full Menu
+      </a>
+    </div>
+  </div>
+  <div class="hero-dots" id="heroDots"></div>
+  <a href="#stats" class="scroll-down"><i class="fas fa-chevron-down"></i></a>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-grid">
+    <div class="stat-item reveal">
+      <div class="stat-num" data-target="500">0</div>
+      <div class="stat-label">Events Catered</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-target="40">0</div>
+      <div class="stat-label">Menu Items</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-target="100">0</div>
+      <div class="stat-label">% Halal</div>
+    </div>
+    <div class="stat-item reveal">
+      <div class="stat-num" data-target="30">0</div>
+      <div class="stat-label">KM Free Delivery Zone</div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-grid">
+    <div class="about-imgs reveal-left">
+      <img src="images/BeFunky-collage (1).jpg" alt="Asma Catering" class="about-main-img" onerror="this.src='images/Catering Menu.JPG'"/>
+      <img src="images/Asma Catering Logo.GIF" alt="Logo" class="about-badge-img" onerror="this.src='images/asma.PNG'"/>
+    </div>
+    <div class="about-text reveal-right">
+      <p class="section-label">Our Story</p>
+      <h2 class="section-title">Taste of Home,<br/>Made with Love</h2>
+      <div class="section-divider" style="margin:0 0 24px;"></div>
+      <p>Asma Catering has been serving the Brampton, Mississauga and Greater Toronto Area community with authentic, home-style <strong>Halal Pakistani, Indian and Chinese food</strong> that brings families and friends together.</p>
+      <p>From intimate family gatherings to large community events, weddings and weekly meal packages — we prepare every dish with the finest Halal-certified ingredients and traditional recipes passed down through generations.</p>
+      <p>We proudly serve everyone who appreciates <strong>clean, wholesome, delicious food</strong>.</p>
+      <div class="about-features">
+        <div class="feature-chip"><i class="fas fa-certificate"></i> 100% Halal</div>
+        <div class="feature-chip"><i class="fas fa-truck"></i> Free Delivery*</div>
+        <div class="feature-chip"><i class="fas fa-home"></i> Home Style</div>
+        <div class="feature-chip"><i class="fas fa-users"></i> Party Catering</div>
+        <div class="feature-chip"><i class="fas fa-box"></i> Weekly Packages</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section id="gallery">
+  <div class="text-center reveal">
+    <p class="section-label">Our Food</p>
+    <h2 class="section-title">Fresh, Flavourful &amp; Halal</h2>
+    <div class="section-divider"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-item reveal" data-src="images/Biryani.JPG" data-label="Biryani">
+      <div class="menu-card-img-wrap"><img src="images/Biryani.JPG" alt="Biryani" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Biryani</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Chicken Karhai.jpg" data-label="Chicken Karhai">
+      <div class="menu-card-img-wrap"><img src="images/Chicken Karhai.jpg" alt="Chicken Karhai" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Chicken Karhai</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Nihari.JPG" data-label="Nihari">
+      <div class="menu-card-img-wrap"><img src="images/Nihari.JPG" alt="Nihari" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Nihari</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Seekh Kebob.jpg" data-label="Seekh Kebob">
+      <div class="menu-card-img-wrap"><img src="images/Seekh Kebob.jpg" alt="Seekh Kebob" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Seekh Kebob</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Veal Karhai.jpg" data-label="Veal Karhai">
+      <div class="menu-card-img-wrap"><img src="images/Veal Karhai.jpg" alt="Veal Karhai" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Veal Karhai</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Veal Qorma.jpg" data-label="Veal Qorma">
+      <div class="menu-card-img-wrap"><img src="images/Veal Qorma.jpg" alt="Veal Qorma" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Veal Qorma</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Achar Gosht.JPG" data-label="Achar Gosht">
+      <div class="menu-card-img-wrap"><img src="images/Achar Gosht.JPG" alt="Achar Gosht" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Achar Gosht</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Dahi Ki Kari.jpg" data-label="Dahi Ki Kari">
+      <div class="menu-card-img-wrap"><img src="images/Dahi Ki Kari.jpg" alt="Dahi Ki Kari" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Dahi Ki Kari</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Zarda.jpg" data-label="Zarda">
+      <div class="menu-card-img-wrap"><img src="images/Zarda.jpg" alt="Zarda" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Zarda</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Dum Ka Qeema.jpg" data-label="Dum Ka Qeema">
+      <div class="menu-card-img-wrap"><img src="images/Dum Ka Qeema.jpg" alt="Dum Ka Qeema" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Dum Ka Qeema</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/Chicken Breast with Fried Rice.jpg" data-label="Chicken Fried Rice">
+      <div class="menu-card-img-wrap"><img src="images/Chicken Breast with Fried Rice.jpg" alt="Fried Rice" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Chicken Fried Rice</div>
+    </div>
+    <div class="gallery-item reveal" data-src="images/IMG-20250203-WA0001.jpg" data-label="Party Spread">
+      <div class="menu-card-img-wrap"><img src="images/IMG-20250203-WA0001.jpg" alt="Party Spread" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Party Spread</div>
+    </div>
+
+    <div class="gallery-item reveal" data-src="images/Chicken Breast with Fried Rice.jpg" data-label="Chinese Halal Food">
+      <div class="menu-card-img-wrap"><img src="images/Chicken Breast with Fried Rice.jpg" alt="Chinese Halal Food" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Chinese Halal Food</div>
+    </div>
+
+    <div class="gallery-item reveal" data-src="images/Zarda 2.jpg" data-label="Zarda (Sweet Rice)">
+      <div class="menu-card-img-wrap"><img src="images/Zarda 2.jpg" alt="Zarda" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Zarda (Sweet Rice)</div>
+    </div>
+
+    <div class="gallery-item reveal" data-src="images/Chicken Sandwich.jpg" data-label="Sliders">
+      <div class="menu-card-img-wrap"><img src="images/Chicken Sandwich.jpg" alt="Sliders" loading="lazy"/></div>
+      <div class="gallery-overlay"><i class="fas fa-search-plus"></i> Sliders</div>
+    </div>
+
+    <div class="gallery-item gallery-video reveal">
+      <video src="images/catering-video.mp4" muted loop playsinline preload="none" poster="images/BeFunky-collage.jpg" style="width:100%;height:100%;object-fit:cover;display:block;"></video>
+      <div class="gallery-overlay" style="opacity:1;background:linear-gradient(to top,rgba(0,0,0,.6) 0%,transparent 60%);">
+        <i class="fas fa-play-circle"></i> Asma Catering
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<div id="lightbox">
+  <span class="lb-close" id="lbClose"><i class="fas fa-times"></i></span>
+  <span class="lb-arrow lb-prev" id="lbPrev"><i class="fas fa-chevron-left"></i></span>
+  <img id="lbImg" src="" alt=""/>
+  <span class="lb-arrow lb-next" id="lbNext"><i class="fas fa-chevron-right"></i></span>
+  <div class="lb-caption" id="lbCaption"></div>
+</div>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="text-center reveal">
+    <p class="section-label">Full Menu</p>
+    <h2 class="section-title">Our Halal Menu</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="menu-search-wrap reveal">
+    <i class="fas fa-search"></i>
+    <input class="menu-search" id="menuSearch" type="text" placeholder="Search menu items…" autocomplete="off"/>
+  </div>
+
+  <div class="menu-tabs reveal">
+    <button class="tab-btn active" data-tab="curry">🍛 Curry</button>
+    <button class="tab-btn" data-tab="veg">🥦 Vegetarian</button>
+    <button class="tab-btn" data-tab="rice">🍚 Rice</button>
+    <button class="tab-btn" data-tab="bbq">🔥 BBQ &amp; Kebob</button>
+    <button class="tab-btn" data-tab="chinese">🥡 Chinese</button>
+    <button class="tab-btn" data-tab="appetizer">🥗 Appetizer</button>
+    <button class="tab-btn" data-tab="sweet">🍮 Sweets</button>
+  </div>
+
+  <!-- CURRY -->
+  <div class="menu-section active" id="tab-curry">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍲</div><div class="menu-card-body"><h4>Paya (Cow Foot Soup)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $85</div><div class="price-tag"><span>M</span> $105</div><div class="price-tag"><span>L</span> $150</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Nihari.JPG" alt="Nihari" loading="lazy"/></div><div class="menu-card-body"><h4>Nihari (Veal)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $85</div><div class="price-tag"><span>M</span> $105</div><div class="price-tag"><span>L</span> $150</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Chicken Karhai (2).jpg" alt="Chicken Karhai" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Karhai</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍗</div><div class="menu-card-body"><h4>Green Chicken</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Veal Karhai.jpg" alt="Veal Karhai" loading="lazy"/></div><div class="menu-card-body"><h4>Veal Karhai</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $100</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🐑</div><div class="menu-card-body"><h4>Mutton Karhai</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $90</div><div class="price-tag"><span>M</span> $130</div><div class="price-tag"><span>L</span> $160</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🌶️</div><div class="menu-card-body"><h4>Achar Chicken</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Achar Gosht.JPG" alt="Achar Gosht" loading="lazy"/></div><div class="menu-card-body"><h4>Achar Gosht</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $100</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Haleem.JPEG" alt="Haleem" loading="lazy"/></div><div class="menu-card-body"><h4>Haleem</h4><div class="menu-prices"><div class="price-tag"><span>M</span> $105</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍗</div><div class="menu-card-body"><h4>Chicken 65</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $100</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🧈</div><div class="menu-card-body"><h4>Butter Chicken</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍗</div><div class="menu-card-body"><h4>Chicken Qorma</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Veal Qorma.jpg" alt="Veal Qorma" loading="lazy"/></div><div class="menu-card-body"><h4>Veal Qorma</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $100</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Dum Ka Qeema.jpg" alt="Dum Ka Keema" loading="lazy"/></div><div class="menu-card-body"><h4>Dum Ka Keema (Veal)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $130</div><div class="price-tag"><span>L</span> $160</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Qeema Bell Pepper.jpeg" alt="Keema Bell Pepper" loading="lazy"/></div><div class="menu-card-body"><h4>Keema Bell Pepper (Veal)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $130</div><div class="price-tag"><span>L</span> $160</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥔</div><div class="menu-card-body"><h4>Keema Alu</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $110</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🌿</div><div class="menu-card-body"><h4>Keema Alu Methi</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $80</div><div class="price-tag"><span>M</span> $110</div><div class="price-tag"><span>L</span> $160</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥬</div><div class="menu-card-body"><h4>Palak Gosht</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $75</div><div class="price-tag"><span>M</span> $100</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍡</div><div class="menu-card-body"><h4>Kofta Curry</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $75</div><div class="price-tag"><span>M</span> $95</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥩</div><div class="menu-card-body"><h4>Veal Bhuna Gosht</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $75</div><div class="price-tag"><span>M</span> $95</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- VEGETARIAN -->
+  <div class="menu-section" id="tab-veg">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍆</div><div class="menu-card-body"><h4>Bagharay Baigan</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $45</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥦</div><div class="menu-card-body"><h4>Mix Vegetables</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $60</div><div class="price-tag"><span>L</span> $80</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥔</div><div class="menu-card-body"><h4>Alu Baigan</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $60</div><div class="price-tag"><span>L</span> $80</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🫘</div><div class="menu-card-body"><h4>Cholay Ka Salan</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $60</div><div class="price-tag"><span>L</span> $80</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Dal Mash.jpeg" alt="Dal Mash" loading="lazy"/></div><div class="menu-card-body"><h4>Dal (Mash / Moong)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $30</div><div class="price-tag"><span>M</span> $45</div><div class="price-tag"><span>L</span> $60</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Dahi Ki Kari (2).jpg" alt="Dahi Baray" loading="lazy"/></div><div class="menu-card-body"><h4>Dahi Ki Kari (Pakora)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $55</div><div class="price-tag"><span>L</span> $75</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Palak Paneer.jpeg" alt="Palak Paneer" loading="lazy"/></div><div class="menu-card-body"><h4>Palak Paneer</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $50</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- RICE -->
+  <div class="menu-section" id="tab-rice">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Biryani.JPG" alt="Chicken Biryani" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Biryani</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $100</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Biryani (2).JPG" alt="Veal Biryani" loading="lazy"/></div><div class="menu-card-body"><h4>Veal Biryani</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $75</div><div class="price-tag"><span>M</span> $95</div><div class="price-tag"><span>L</span> $130</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍚</div><div class="menu-card-body"><h4>Tahari (Veal)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $70</div><div class="price-tag"><span>M</span> $90</div><div class="price-tag"><span>L</span> $120</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🌱</div><div class="menu-card-body"><h4>Veg Biryani</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $45</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍚</div><div class="menu-card-body"><h4>Rice (Qubooli)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $45</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🌿</div><div class="menu-card-body"><h4>Veg Pulao</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $45</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🫘</div><div class="menu-card-body"><h4>Chan Pulao (Chick Pea)</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $45</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+          <div class="menu-card reveal"><div class="menu-card-placeholder">🍝</div><div class="menu-card-body"><h4>Keema Macaroni</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $50</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- BBQ -->
+  <div class="menu-section" id="tab-bbq">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Bihari Keboab.jpg" alt="Bihari Kebob" loading="lazy"/></div><div class="menu-card-body"><h4>Bihari Kebob</h4><p class="menu-note">Min 5 lb</p><div class="menu-prices"><div class="price-tag">$20 / lb</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥩</div><div class="menu-card-body"><h4>Chapli Kebob (Beef / Chicken) — Frozen</h4><div class="menu-prices"><div class="price-tag">$30 / dozen</div></div><p class="menu-note">+$4/dozen if fried</p></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Seekh Kebob footlong.jpg" alt="Seekh Kebob" loading="lazy"/></div><div class="menu-card-body"><h4>Seekh Kebob</h4><p class="menu-note">Min 12 pieces</p><div class="menu-prices"><div class="price-tag">$6 each</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Shami Keboab.jpeg" alt="Shami Kebob" loading="lazy"/></div><div class="menu-card-body"><h4>Shami Kebob (Chicken / Beef) — Frozen</h4><div class="menu-prices"><div class="price-tag">$25 /$30 / dozen</div></div><p class="menu-note">+$4/dozen if fried</p></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Chicken Q Leg.jpeg" alt="Chicken Quarter Leg" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Quarter Leg</h4><p class="menu-note">Min 12 pieces</p><div class="menu-prices"><div class="price-tag">$6 each</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Chicken Tikka Boti.jpg" alt="Chicken Tikka Boti" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Tikka Boti</h4><p class="menu-note">Min 3 lb</p><div class="menu-prices"><div class="price-tag">$18 / lb</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍢</div><div class="menu-card-body"><h4>Chicken Malai Boti</h4><p class="menu-note">Min 3 lb</p><div class="menu-prices"><div class="price-tag">$18 / lb</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- CHINESE -->
+  <div class="menu-section" id="tab-chinese">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥡</div><div class="menu-card-body"><h4>Chicken Chow Mein</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Chicken Breast with Fried Rice.jpg" alt="Chicken Fried Rice" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Fried Rice</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $50</div><div class="price-tag"><span>M</span> $75</div><div class="price-tag"><span>L</span> $95</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Veg Pasta.jpeg" alt="Chicken Veg Pasta" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Veg Pasta</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $60</div><div class="price-tag"><span>L</span> $80</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- APPETIZER -->
+  <div class="menu-section" id="tab-appetizer">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🥪</div><div class="menu-card-body"><h4>Chicken / Egg Sandwich</h4><div class="menu-prices"><div class="price-tag">$20 / dozen</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🐟</div><div class="menu-card-body"><h4>Fish Pakora</h4><div class="menu-prices"><div class="price-tag">$20 / lb</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🫘</div><div class="menu-card-body"><h4>Chana Chat</h4><div class="menu-prices"><div class="price-tag"><span>M</span> $40</div><div class="price-tag"><span>L</span> $70</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Chicken Bread.jpg" alt="Chicken Bread" loading="lazy"/></div><div class="menu-card-body"><h4>Chicken Bread (12 inch)</h4><div class="menu-prices"><div class="price-tag">$20 each</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍔</div><div class="menu-card-body"><h4>Slider (Chicken / Beef)</h4><div class="menu-prices"><div class="price-tag">$24 / dozen</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍗</div><div class="menu-card-body"><h4>Crispy Fried Chicken Strips</h4><div class="menu-prices"><div class="price-tag">$18 / lb</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">☕</div><div class="menu-card-body"><h4>Kashmiri Chai</h4><p class="menu-note">Min 20 cups · 4oz per cup</p><div class="menu-prices"><div class="price-tag">$3 / cup</div></div></div></div>
+    </div>
+  </div>
+
+  <!-- SWEETS -->
+  <div class="menu-section" id="tab-sweet">
+    <div class="menu-grid">
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Suji Ka Halwa.jpeg" alt="Sujee Halwa" loading="lazy"/></div><div class="menu-card-body"><h4>Sujee Halwa</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $55</div><div class="price-tag"><span>M</span> $75</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Kheer.jpeg" alt="Kheer" loading="lazy"/></div><div class="menu-card-body"><h4>Kheer</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $50</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Fruit Trifle.jpeg" alt="Fruit Trifle" loading="lazy"/></div><div class="menu-card-body"><h4>Fruit Trifle</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $100</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Double Ka Meetha.jpeg" alt="Double Ka Meetha" loading="lazy"/></div><div class="menu-card-body"><h4>Double Ka Meetha</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $75</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Kheer.jpeg" alt="Loki Ki Kheer" loading="lazy"/></div><div class="menu-card-body"><h4>Loki Ki Kheer</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $50</div><div class="price-tag"><span>M</span> $70</div><div class="price-tag"><span>L</span> $90</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍍</div><div class="menu-card-body"><h4>Pineapple Delight</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $100</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Gajrela.jpeg" alt="Gajrela" loading="lazy"/></div><div class="menu-card-body"><h4>Gajrela</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $100</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍮</div><div class="menu-card-body"><h4>Lab-e-Shereen</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $60</div><div class="price-tag"><span>M</span> $80</div><div class="price-tag"><span>L</span> $100</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-placeholder">🍵</div><div class="menu-card-body"><h4>Sheer Khurma</h4><div class="menu-prices"><div class="price-tag"><span>S</span> $40</div><div class="price-tag"><span>M</span> $60</div><div class="price-tag"><span>L</span> $80</div></div></div></div>
+      <div class="menu-card reveal"><div class="menu-card-img-wrap"><img class="menu-card-img" src="images/Zarda 2.jpg" alt="Zarda" loading="lazy"/></div><div class="menu-card-body"><h4>Zarda (Sweet Rice)</h4><p class="menu-note">Available on request</p><div class="menu-prices"><div class="price-tag">Contact for price</div></div></div></div>
+    </div>
+  </div>
+
+</section>
+
+<!-- PACKAGES -->
+<section id="packages">
+  <div class="text-center reveal">
+    <p class="section-label">Party Packages</p>
+    <h2 class="section-title">Value Party Packages</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="packages-grid">
+
+    <div class="pkg-card reveal">
+      <div class="pkg-header">
+        <h3>Package #1</h3>
+        <p style="opacity:.8;font-size:.9rem;margin-top:4px;">Intimate gatherings</p>
+        <div class="pkg-price-tag">$9.99 / person</div>
+      </div>
+      <div class="pkg-body">
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Chicken Biryani</li>
+          <li><i class="fas fa-check-circle"></i> Chicken Qorma / Karhai / Achari Chicken</li>
+          <li><i class="fas fa-check-circle"></i> Kheer</li>
+          <li><i class="fas fa-check-circle"></i> Raita + Naan (Kulcha / Mughlai) <em>included</em></li>
+        </ul>
+        <div class="pkg-pricing">
+          <h5>Group Pricing</h5>
+          <div class="pkg-row"><span>10 Persons</span><strong>$120</strong></div>
+          <div class="pkg-row"><span>15 Persons</span><strong>$180</strong></div>
+          <div class="pkg-row"><span>20 Persons</span><strong>$240</strong></div>
+          <div class="pkg-row"><span>25 Persons</span><strong>$275</strong></div>
+          <div class="pkg-row"><span>30 Persons</span><strong>$300</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pkg-card reveal">
+      <div class="pkg-header">
+        <h3>Package #2</h3>
+        <p style="opacity:.8;font-size:.9rem;margin-top:4px;">Medium events</p>
+        <div class="pkg-price-tag">$10.99 / person</div>
+      </div>
+      <div class="pkg-body">
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Chicken / Veal Biryani</li>
+          <li><i class="fas fa-check-circle"></i> Chicken Qorma / Karhai / Achar / Butter Chicken</li>
+          <li><i class="fas fa-check-circle"></i> Mix Veg / Chana Masala / Dahi Ki Kari</li>
+          <li><i class="fas fa-check-circle"></i> Kheer / Fruit Trifle</li>
+          <li><i class="fas fa-check-circle"></i> Raita, Salad + Naan <em>included</em></li>
+        </ul>
+        <div class="pkg-pricing">
+          <h5>Group Pricing</h5>
+          <div class="pkg-row"><span>10 Persons</span><strong>$180</strong></div>
+          <div class="pkg-row"><span>15 Persons</span><strong>$240</strong></div>
+          <div class="pkg-row"><span>20 Persons</span><strong>$270</strong></div>
+          <div class="pkg-row"><span>25 Persons</span><strong>$295</strong></div>
+          <div class="pkg-row"><span>30 Persons</span><strong>$330</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pkg-card reveal">
+      <div class="pkg-header">
+        <h3>Package #4</h3>
+        <p style="opacity:.8;font-size:.9rem;margin-top:4px;">Premium full-course spread</p>
+        <div class="pkg-price-tag">$14.99 / person</div>
+      </div>
+      <div class="pkg-body">
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Appetizer – Chana Chat / Sandwich</li>
+          <li><i class="fas fa-check-circle"></i> Chicken / Veal Biryani</li>
+          <li><i class="fas fa-check-circle"></i> Chicken Qorma / Karhai / Achar Chicken / Butter Chicken</li>
+          <li><i class="fas fa-check-circle"></i> BBQ – Chicken Tikka / Seekh Kebob</li>
+          <li><i class="fas fa-check-circle"></i> Mix Veg / Chana Masala / Pakora Kari</li>
+          <li><i class="fas fa-check-circle"></i> Kheer / Fruit Trifle</li>
+          <li><i class="fas fa-check-circle"></i> Raita + Naan (Pita Commercial) <em>included</em></li>
+        </ul>
+        <div class="pkg-pricing">
+          <h5>Group Pricing</h5>
+          <div class="pkg-row"><span>15 Persons</span><strong>$285</strong></div>
+          <div class="pkg-row"><span>20 Persons</span><strong>$360</strong></div>
+          <div class="pkg-row"><span>25 Persons</span><strong>$400</strong></div>
+          <div class="pkg-row"><span>30 Persons</span><strong>$450</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="pkg-card reveal">
+      <div class="pkg-header">
+        <h3>Package #3</h3>
+        <p style="opacity:.8;font-size:.9rem;margin-top:4px;">Full spread for large events</p>
+        <div class="pkg-price-tag">$12.99 / person</div>
+      </div>
+      <div class="pkg-body">
+        <ul>
+          <li><i class="fas fa-check-circle"></i> Chicken / Veal Biryani</li>
+          <li><i class="fas fa-check-circle"></i> Chicken Qorma / Karhai / Achar / Butter Chicken</li>
+          <li><i class="fas fa-check-circle"></i> BBQ – Chicken Tikka / Seekh Kebob</li>
+          <li><i class="fas fa-check-circle"></i> Mix Veg / Chana Masala / Dahi Ki Kari</li>
+          <li><i class="fas fa-check-circle"></i> Kheer / Fruit Trifle</li>
+          <li><i class="fas fa-check-circle"></i> Raita, Salad + Naan <em>included</em></li>
+        </ul>
+        <div class="pkg-pricing">
+          <h5>Group Pricing</h5>
+          <div class="pkg-row"><span>15 Persons</span><strong>$225</strong></div>
+          <div class="pkg-row"><span>20 Persons</span><strong>$300</strong></div>
+          <div class="pkg-row"><span>25 Persons</span><strong>$375</strong></div>
+          <div class="pkg-row"><span>30 Persons</span><strong>$390</strong></div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="delivery-banner reveal">
+    <div class="delivery-icon"><i class="fas fa-truck"></i></div>
+    <div class="delivery-text">
+      <h3>Free Delivery Available</h3>
+      <p>We offer <strong>free delivery within 30 km</strong> for large party orders of <strong>$500 and above</strong>.<br/>
+      For orders under $500, we charge <strong>$10 per 5 km</strong>. Contact us to discuss your event!</p>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="text-center reveal">
+    <p class="section-label">Get In Touch</p>
+    <h2 class="section-title">Order via WhatsApp</h2>
+    <div class="section-divider"></div>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info reveal-left">
+      <h3>How to Place an Order</h3>
+      <p style="color:#777;margin-bottom:28px;line-height:1.8;">We do not take online orders. Simply message us on WhatsApp with your event date, number of guests, and menu choices — we'll handle the rest!</p>
+
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fab fa-whatsapp"></i></div>
+        <div>
+          <h4>WhatsApp / Phone</h4>
+          <a href="https://wa.me/16474015287">647-401-5287</a>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div>
+          <h4>Service Area</h4>
+          <p>Brampton · Mississauga · Greater Toronto Area</p>
+        </div>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon"><i class="fas fa-globe"></i></div>
+        <div>
+          <h4>Website</h4>
+          <a href="https://www.asmacatering.com" target="_blank">www.asmacatering.com</a>
+        </div>
+      </div>
+
+      <a href="https://wa.me/16474015287?text=Hello%20Asma%20Catering!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="whatsapp-cta">
+        <i class="fab fa-whatsapp" style="font-size:1.4rem;"></i> Chat with Us on WhatsApp
+      </a>
+
+      <div class="social-links">
+        <a href="https://www.facebook.com/Asma-Catering-Service-Pakistani-Indian-Halal-Food-244051079538476/" target="_blank" class="social-btn social-fb" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@asmacatering" target="_blank" class="social-btn social-tt" title="TikTok"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/16474015287" target="_blank" class="social-btn social-wa" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+      </div>
+      <p style="font-size:.78rem;color:#bbb;margin-top:8px;">* Update TikTok link with your exact handle if needed.</p>
+    </div>
+
+    <div class="contact-visual reveal-right">
+      <img src="images/Catering Menu.JPG" alt="Asma Catering Menu" class="contact-img" onerror="this.src='images/Weekly Package.jpg'"/>
+      <div class="halal-badge"><span>HALAL</span>Certified Food</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <img src="images/Asma Catering Logo.GIF" alt="Asma Catering" onerror="this.src='images/Logo.JPG'"/>
+      <p>Authentic Halal Pakistani, Indian and Chinese catering for all occasions in Brampton, Mississauga and the Greater Toronto Area.</p>
+      <div class="social-links" style="margin-top:18px;">
+        <a href="https://www.facebook.com/Asma-Catering-Service-Pakistani-Indian-Halal-Food-244051079538476/" target="_blank" class="social-btn social-fb"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://www.tiktok.com/@asmacatering" target="_blank" class="social-btn social-tt"><i class="fab fa-tiktok"></i></a>
+        <a href="https://wa.me/16474015287" target="_blank" class="social-btn social-wa"><i class="fab fa-whatsapp"></i></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="#about"><i class="fas fa-chevron-right fa-xs"></i> About Us</a></li>
+        <li><a href="#gallery"><i class="fas fa-chevron-right fa-xs"></i> Gallery</a></li>
+        <li><a href="#menu"><i class="fas fa-chevron-right fa-xs"></i> Full Menu</a></li>
+        <li><a href="#packages"><i class="fas fa-chevron-right fa-xs"></i> Party Packages</a></li>
+        <li><a href="#contact"><i class="fas fa-chevron-right fa-xs"></i> Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="https://wa.me/16474015287"><i class="fab fa-whatsapp"></i> 647-401-5287</a></li>
+        <li><a href="https://www.asmacatering.com" target="_blank"><i class="fas fa-globe"></i> asmacatering.com</a></li>
+        <li style="color:#777;font-size:.88rem;margin-top:8px;padding:4px 0;"><i class="fas fa-map-marker-alt" style="margin-right:6px;"></i>Brampton · Mississauga · GTA</li>
+        <li style="color:#777;font-size:.88rem;padding:4px 0;"><i class="fab fa-whatsapp" style="margin-right:6px;"></i>Orders via WhatsApp only</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2025 Asma Catering Service. All rights reserved. &nbsp;|&nbsp; 100% Halal Food &nbsp;|&nbsp; Brampton · Mississauga · GTA</p>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="backTop" title="Back to top"><i class="fas fa-chevron-up"></i></button>
+
+<!-- FLOATING WHATSAPP -->
+<a href="https://wa.me/16474015287?text=Hello%20Asma%20Catering!%20I%20would%20like%20to%20place%20an%20order." target="_blank" class="float-wa" title="Order on WhatsApp">
+  <i class="fab fa-whatsapp"></i>
+</a>
+
+<script>
+// ── LOADER ──
+window.addEventListener('load', () => {
+  setTimeout(() => document.getElementById('loader').classList.add('hidden'), 1400);
+});
+
+// ── MOBILE NAV ──
+document.getElementById('hamburger').addEventListener('click', function() {
+  document.getElementById('navLinks').classList.toggle('open');
+  this.querySelector('i').classList.toggle('fa-bars');
+  this.querySelector('i').classList.toggle('fa-times');
+});
+document.querySelectorAll('#navLinks a').forEach(a => {
+  a.addEventListener('click', () => {
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').querySelector('i').classList.add('fa-bars');
+    document.getElementById('hamburger').querySelector('i').classList.remove('fa-times');
+  });
+});
+
+// ── NAV SCROLL ──
+window.addEventListener('scroll', () => {
+  document.getElementById('mainNav').classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('backTop').classList.toggle('show', window.scrollY > 400);
+});
+document.getElementById('backTop').addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+
+// ── HERO SLIDER ──
+const slides = document.querySelectorAll('.hero-slide');
+const dotsContainer = document.getElementById('heroDots');
+let current = 0, timer;
+
+slides.forEach((_, i) => {
+  const dot = document.createElement('div');
+  dot.className = 'hero-dot' + (i === 0 ? ' active' : '');
+  dot.addEventListener('click', () => goSlide(i));
+  dotsContainer.appendChild(dot);
+});
+
+function goSlide(n) {
+  slides[current].classList.remove('active');
+  dotsContainer.children[current].classList.remove('active');
+  current = (n + slides.length) % slides.length;
+  slides[current].classList.add('active');
+  dotsContainer.children[current].classList.add('active');
+  clearInterval(timer);
+  timer = setInterval(() => goSlide(current + 1), 4500);
+}
+timer = setInterval(() => goSlide(current + 1), 4500);
+
+// ── SCROLL REVEAL ──
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('visible'), i * 80);
+      observer.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.12 });
+document.querySelectorAll('.reveal, .reveal-left, .reveal-right').forEach(el => observer.observe(el));
+
+// ── COUNTER ANIMATION ──
+const counterObs = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) return;
+    const el = entry.target;
+    const target = +el.dataset.target;
+    let count = 0;
+    const step = Math.max(1, Math.floor(target / 60));
+    const interval = setInterval(() => {
+      count = Math.min(count + step, target);
+      el.textContent = count + (target === 100 ? '%' : '+');
+      if (count >= target) clearInterval(interval);
+    }, 28);
+    counterObs.unobserve(el);
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.stat-num').forEach(el => counterObs.observe(el));
+
+// ── MENU TABS ──
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    this.classList.add('active');
+    const section = document.getElementById('tab-' + this.dataset.tab);
+    section.classList.add('active');
+    // re-trigger reveal on newly shown cards
+    section.querySelectorAll('.reveal:not(.visible)').forEach(el => observer.observe(el));
+    document.getElementById('menuSearch').value = '';
+  });
+});
+
+// ── MENU SEARCH ──
+document.getElementById('menuSearch').addEventListener('input', function() {
+  const q = this.value.toLowerCase().trim();
+  // show all tabs when searching
+  if (q) {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.add('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  } else {
+    document.querySelectorAll('.menu-section').forEach(s => s.classList.remove('active'));
+    document.querySelector('.tab-btn[data-tab="curry"]').classList.add('active');
+    document.getElementById('tab-curry').classList.add('active');
+  }
+  document.querySelectorAll('.menu-card').forEach(card => {
+    const name = card.querySelector('h4')?.textContent.toLowerCase() || '';
+    card.classList.toggle('hidden', q && !name.includes(q));
+  });
+});
+
+// ── VIDEO GALLERY HOVER ──
+document.querySelectorAll('.gallery-video').forEach(item => {
+  const vid = item.querySelector('video');
+  item.addEventListener('mouseenter', () => vid.play());
+  item.addEventListener('mouseleave', () => { vid.pause(); vid.currentTime = 0; });
+  item.addEventListener('click', () => {
+    if (vid.paused) vid.play(); else vid.pause();
+  });
+});
+
+// ── LIGHTBOX ──
+const lbImages = [];
+document.querySelectorAll('.gallery-item').forEach((item, i) => {
+  lbImages.push({ src: item.dataset.src, label: item.dataset.label });
+  item.addEventListener('click', () => openLightbox(i));
+});
+let lbIdx = 0;
+const lb = document.getElementById('lightbox');
+const lbImg = document.getElementById('lbImg');
+const lbCaption = document.getElementById('lbCaption');
+
+function openLightbox(i) {
+  lbIdx = i;
+  lbImg.src = lbImages[i].src;
+  lbCaption.textContent = lbImages[i].label;
+  lb.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() {
+  lb.classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.getElementById('lbClose').addEventListener('click', closeLightbox);
+document.getElementById('lbPrev').addEventListener('click', () => openLightbox((lbIdx - 1 + lbImages.length) % lbImages.length));
+document.getElementById('lbNext').addEventListener('click', () => openLightbox((lbIdx + 1) % lbImages.length));
+lb.addEventListener('click', e => { if (e.target === lb) closeLightbox(); });
+document.addEventListener('keydown', e => {
+  if (!lb.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') openLightbox((lbIdx - 1 + lbImages.length) % lbImages.length);
+  if (e.key === 'ArrowRight') openLightbox((lbIdx + 1) % lbImages.length);
+});
+</script>
+</body>
+</html>
