@@ -291,6 +291,37 @@
     .price-tag span { color: #999; font-weight: 600; }
     .menu-note { font-size: .8rem; color: #999; margin-top: 6px; }
 
+    .menu-slider { position: relative; max-width: 880px; margin: 0 auto 44px; }
+    .menu-slider-track {
+      position: relative; width: 100%; aspect-ratio: 4 / 3;
+      background: #fff; border-radius: 16px; overflow: hidden;
+      border: 1px solid rgba(0,0,0,.05); box-shadow: 0 3px 16px rgba(0,0,0,.09);
+    }
+    .menu-slider-slide {
+      position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+      opacity: 0; visibility: hidden; transition: opacity .4s ease; padding: 10px;
+    }
+    .menu-slider-slide.active { opacity: 1; visibility: visible; }
+    .menu-slider-slide img { max-width: 100%; max-height: 100%; object-fit: contain; cursor: zoom-in; }
+    .menu-slider-arrow {
+      position: absolute; top: 50%; transform: translateY(-50%); z-index: 2;
+      width: 44px; height: 44px; border-radius: 50%; border: none; cursor: pointer;
+      background: rgba(0,0,0,.45); color: #fff; font-size: 1.1rem;
+      display: flex; align-items: center; justify-content: center; transition: background .2s;
+    }
+    .menu-slider-arrow:hover { background: var(--green); }
+    .menu-slider-prev { left: 12px; }
+    .menu-slider-next { right: 12px; }
+    .menu-slider-dots { display: flex; justify-content: center; gap: 9px; margin-top: 16px; }
+    .menu-slider-dot {
+      width: 10px; height: 10px; border-radius: 50%; background: #ddd; cursor: pointer;
+      transition: background .2s, transform .2s; border: none; padding: 0;
+    }
+    .menu-slider-dot.active { background: var(--green); transform: scale(1.25); }
+    @media (max-width: 600px) {
+      .menu-slider-track { aspect-ratio: 3 / 4; }
+    }
+
     /* ─── PACKAGES ─── */
     #packages { background: #fff; }
     .packages-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(310px, 1fr)); gap: 28px; max-width: 1100px; margin: 0 auto; }
@@ -651,10 +682,17 @@
     <h2 class="section-title">Our Halal Menu</h2>
     <div class="section-divider"></div>
   </div>
-<!-- <div > <img class="menu-card-img" src="images/Slide 1.PNG" alt="Menu" loading="lazy"/></div>
-<div > <img class="menu-card-img" src="images/Slide 2.png" alt="Menu" loading="lazy"/></div>
-<div > <img class="menu-card-img" src="images/slide 3.jpg" alt="Menu" loading="lazy"/></div>
-<div > <img class="menu-card-img" src="images/Slide 4.png" alt="Menu" loading="lazy"/></div> -->
+  <div class="menu-slider reveal" id="menuSlider">
+    <div class="menu-slider-track">
+      <div class="menu-slider-slide active"><img src="images/Slide 1.PNG" alt="Menu page 1" loading="lazy" data-label="Menu — Page 1"/></div>
+      <div class="menu-slider-slide"><img src="images/Slide 2.png" alt="Menu page 2" loading="lazy" data-label="Menu — Page 2"/></div>
+      <div class="menu-slider-slide"><img src="images/slide 3.jpg" alt="Menu page 3" loading="lazy" data-label="Menu — Page 3"/></div>
+      <div class="menu-slider-slide"><img src="images/Slide 4.png" alt="Menu page 4" loading="lazy" data-label="Menu — Page 4"/></div>
+    </div>
+    <button class="menu-slider-arrow menu-slider-prev" aria-label="Previous slide" type="button"><i class="fas fa-chevron-left"></i></button>
+    <button class="menu-slider-arrow menu-slider-next" aria-label="Next slide" type="button"><i class="fas fa-chevron-right"></i></button>
+    <div class="menu-slider-dots"></div>
+  </div>
   <div class="menu-search-wrap reveal">
     <i class="fas fa-search"></i>
     <input class="menu-search" id="menuSearch" type="text" placeholder="Search menu items…" autocomplete="off"/>
@@ -1157,6 +1195,40 @@ document.addEventListener('keydown', e => {
   if (e.key === 'ArrowLeft') openLightbox((lbIdx - 1 + lbImages.length) % lbImages.length);
   if (e.key === 'ArrowRight') openLightbox((lbIdx + 1) % lbImages.length);
 });
+
+// ── MENU SLIDER ──
+(function () {
+  const slider = document.getElementById('menuSlider');
+  if (!slider) return;
+  const slides = Array.from(slider.querySelectorAll('.menu-slider-slide'));
+  const dotsWrap = slider.querySelector('.menu-slider-dots');
+  let idx = 0;
+
+  slides.forEach((slide, i) => {
+    const dot = document.createElement('button');
+    dot.type = 'button';
+    dot.className = 'menu-slider-dot' + (i === 0 ? ' active' : '');
+    dot.setAttribute('aria-label', 'Go to slide ' + (i + 1));
+    dot.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(dot);
+
+    const img = slide.querySelector('img');
+    const lbIndex = lbImages.length;
+    lbImages.push({ src: img.src, label: img.dataset.label || img.alt });
+    img.addEventListener('click', () => openLightbox(lbIndex));
+  });
+
+  const dots = Array.from(dotsWrap.querySelectorAll('.menu-slider-dot'));
+
+  function goTo(i) {
+    idx = (i + slides.length) % slides.length;
+    slides.forEach((s, j) => s.classList.toggle('active', j === idx));
+    dots.forEach((d, j) => d.classList.toggle('active', j === idx));
+  }
+
+  slider.querySelector('.menu-slider-prev').addEventListener('click', () => goTo(idx - 1));
+  slider.querySelector('.menu-slider-next').addEventListener('click', () => goTo(idx + 1));
+})();
 </script>
 </body>
 </html>
