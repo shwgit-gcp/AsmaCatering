@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://AsmaCatering.com/sitemap.xml
