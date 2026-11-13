@@ -6,12 +6,6 @@
 <priority>1.0</priority>
 </url>
 <url>
-<li>
-    <a href="#about">
-        <i class="fas fa-chevron-right fa-xs"></i>
-        About Us
-    </a>
-</li>
 <loc>https://AsmaCatering.com/about.html</loc>
 </url>
 <url>
